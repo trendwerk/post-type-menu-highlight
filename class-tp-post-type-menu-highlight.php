@@ -12,6 +12,7 @@
  */
 
 class TP_Post_Type_Menu_Highlight {
+
 	function __construct() {		
 		add_filter( 'wp_nav_menu_objects', array( $this, 'highlight' ) );
 	}
@@ -22,24 +23,65 @@ class TP_Post_Type_Menu_Highlight {
 	 * @param array $items
 	 */
 	function highlight( $items ) {
-		if( $items ) {
-			foreach( $items as $item ) {
-				if( in_array( 'current-menu-item', $item->classes ) )
-					return $items;
+		if( 0 === count( $items ) )
+			return $items;
+
+		$current = array_pop( ( wp_filter_object_list( $items, array( 'current' => true ) ) ) );
+
+		if( isset( $current ) )
+			return $items;
+		
+		if( is_singular() || is_paged() || is_tax() ) {
+
+			/**
+			 * Determine post type
+			 */
+			if( ! is_tax() ) {
+				$_post_type = get_post_type();
+			} else {
+				$_taxonomy = get_taxonomy( get_query_var( 'taxonomy' ) );
+
+				/**
+				 * Filter the preferred object type for a taxonomy
+				 *
+				 * @param string $post_type Default is the first associated post type.
+				 * @param string $taxonomy
+				 */
+				$_post_type = apply_filters( 'tp-highlight-taxonomy-post_type', $_taxonomy->object_type[0], $taxonomy );
 			}
-			
-			$nav = new TP_Nav();
-			
-			if( is_single() || is_tax() || is_paged() || is_author() ) {
-				foreach( $items as &$item ) {
-					if( $nav->current_item == $item->ID ) {
-						$item->classes[] = 'current-menu-parent';
-						$item->current = true;
-					}
+
+			if( ! isset( $_post_type ) )
+				return;
+
+			/**
+			 * Highlight post type
+			 */
+			foreach( $items as &$item ) {
+
+				if( trailingslashit( $item->url ) === get_post_type_archive_link( $_post_type ) ) {
+					$item->classes[] = 'current-menu-parent';
+					$item->current = true;
+
+					break;
 				}
+
 			}
+
+			/**
+			 * Highlight parents
+			 */
+			$parent = $item;
+
+			while( 0 < $parent->menu_item_parent ) {
+				$parent_key = array_pop( ( array_keys( wp_filter_object_list( $items, array( 'ID' => $parent->menu_item_parent ) ) ) ) );
+
+				$items[ $parent_key ]->classes[] = 'current-menu-ancestor';
+				$parent = $items[ $parent_key ];
+			}
+
 		}
 		
 		return $items;
 	}
+
 } new TP_Post_Type_Menu_Highlight;
