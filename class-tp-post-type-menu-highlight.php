@@ -59,7 +59,7 @@ class TP_Post_Type_Menu_Highlight {
 			foreach( $items as &$item ) {
 
 				if( trailingslashit( $item->url ) === get_post_type_archive_link( $_post_type ) ) {
-					$item->classes[] = 'current-menu-parent';
+					$item->classes[] = 'current-menu-item';
 					$item->current = true;
 
 					break;
@@ -76,6 +76,8 @@ class TP_Post_Type_Menu_Highlight {
 				$parent_key = array_pop( ( array_keys( wp_filter_object_list( $items, array( 'ID' => $parent->menu_item_parent ) ) ) ) );
 
 				$items[ $parent_key ]->classes[] = 'current-menu-ancestor';
+				$items[ $parent_key ]->current_item_ancestor = true;
+
 				$parent = $items[ $parent_key ];
 			}
 
