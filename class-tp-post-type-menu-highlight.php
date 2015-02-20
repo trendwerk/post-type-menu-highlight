@@ -32,8 +32,10 @@ class TP_Post_Type_Menu_Highlight {
 			
 			if( is_single() || is_tax() || is_paged() || is_author() ) {
 				foreach( $items as &$item ) {
-					if( $nav->current_item == $item->ID )
+					if( $nav->current_item == $item->ID ) {
 						$item->classes[] = 'current-menu-parent';
+						$item->current = true;
+					}
 				}
 			}
 		}
