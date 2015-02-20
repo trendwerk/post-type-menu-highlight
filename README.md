@@ -10,12 +10,20 @@ Assigns the right classes to post type archives in a WordPress menu.
 ### Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
-composer require trendwerk/post-type-menu-highlight 1.0.0
+composer require trendwerk/post-type-menu-highlight 1.1.0
 ```
 
 Or manually add it to your `composer.json`:
 ```json
 "require": {
-	"trendwerk/post-type-menu-highlight": "1.0.0"
+	"trendwerk/post-type-menu-highlight": "1.1.0"
 },
 ```
+
+### Hooks
+
+```php
+apply_filters( 'tp-highlight-taxonomy-post_type', $post_type, $taxonomy );
+```
+
+Filters the preferred post type to be highlighted when viewing a taxonomy term.

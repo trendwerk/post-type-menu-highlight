@@ -8,7 +8,7 @@
  * Author: Trendwerk
  * Author URI: https://github.com/trendwerk
  * 
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 
 class TP_Post_Type_Menu_Highlight {
@@ -47,7 +47,7 @@ class TP_Post_Type_Menu_Highlight {
 				 * @param string $post_type Default is the first associated post type.
 				 * @param string $taxonomy
 				 */
-				$_post_type = apply_filters( 'tp-highlight-taxonomy-post_type', $_taxonomy->object_type[0], $taxonomy );
+				$_post_type = apply_filters( 'tp-highlight-taxonomy-post_type', $_taxonomy->object_type[0], get_query_var( 'taxonomy' ) );
 			}
 
 			if( ! isset( $_post_type ) )
