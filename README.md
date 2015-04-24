@@ -8,13 +8,13 @@ Assigns the right classes to post type archives in a WordPress menu.
 ### Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
-composer require trendwerk/post-type-menu-highlight 1.1.1
+composer require trendwerk/post-type-menu-highlight 1.1.2
 ```
 
 Or manually add it to your `composer.json`:
 ```json
 "require": {
-	"trendwerk/post-type-menu-highlight": "1.1.1"
+	"trendwerk/post-type-menu-highlight": "1.1.2"
 },
 ```
 

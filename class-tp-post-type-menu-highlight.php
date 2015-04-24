@@ -8,7 +8,7 @@
  * Author: Trendwerk
  * Author URI: https://github.com/trendwerk
  * 
- * Version: 1.1.1
+ * Version: 1.1.2
  */
 
 class TP_Post_Type_Menu_Highlight {
@@ -51,7 +51,7 @@ class TP_Post_Type_Menu_Highlight {
 			}
 
 			if( ! isset( $_post_type ) )
-				return;
+				return $items;
 
 			/**
 			 * Highlight post type
@@ -66,6 +66,9 @@ class TP_Post_Type_Menu_Highlight {
 				}
 
 			}
+
+			if( ! isset( $item->current ) || ! $item->current )
+				return $items;
 
 			/**
 			 * Highlight parents
