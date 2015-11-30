@@ -62,8 +62,10 @@ final class Highlight
             return $this->postType;
         }
 
-        if (is_singular() || is_paged() || is_tax()) {
-            if (! is_tax()) {
+        if (is_singular() || is_paged() || is_tax() || is_search()) {
+            if (is_search()) {
+                return get_query_var('post_type');
+            } elseif (! is_tax()) {
                 return get_post_type();
             } else {
                 $taxonomy = get_taxonomy(get_query_var('taxonomy'));
