@@ -8,7 +8,7 @@
  * Author: Trendwerk
  * Author URI: https://github.com/trendwerk
  *
- * Version: 1.1.5
+ * Version: 1.1.6
  */
 
 require_once('lib/Highlight.php');
