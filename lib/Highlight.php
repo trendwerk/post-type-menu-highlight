@@ -97,7 +97,8 @@ final class Highlight
                 return $depth;
             }
 
-            $childItem = array_pop((wp_filter_object_list($allItems, array('ID' => $childItem->menu_item_parent))));
+            $childItems = wp_filter_object_list($allItems, array('ID' => $childItem->menu_item_parent));
+            $childItem = array_pop($childItems);
         }
     }
 }
